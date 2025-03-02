@@ -12,16 +12,19 @@ using namespace std;
 
 class Vendor {
 private:
-    string username, email, password, bio, profilePicture;
-    LinkedBag<Product*> products; // Stores products
-
+    string username;
+    string email;
+    string password;
+    string bio;
+    string profilePicture;
+    LinkedBag<Product*> products; // Stores vendor’s products
 public:
     // Constructor
     Vendor(string user, string mail, string pass, string bio, string pic)
         : username(user), email(mail), password(pass), bio(bio), profilePicture(pic) {}
 
     // Display vendor profile
-    void displayProfile();
+    void displayProfile()const;
 
     // Product management
     void addProduct(Product* product);
