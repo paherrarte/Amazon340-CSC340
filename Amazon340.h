@@ -1,6 +1,9 @@
 #include "LinkedBagDS/LinkedBag.h"
 // TO DO include necessary libraries
+#ifndef AMAZON340_H
+#define AMAZON340_H
 
+#include "Vendor.h"
  
 
 // This class only contains a vendor
@@ -10,9 +13,10 @@ class Amazon340 {
 
 	public:
 		Amazon340();
-		~Amazon340();
 
-		void createVendor(const std::string& username, const std::string& email, const std::string& password, const std::string& bio, const std::string& profilePicture);
+		void createVendor(string username, string email, string password, string bio, string profilePicture);
 
 		Vendor getVendor() const;
 };
+
+#endif
