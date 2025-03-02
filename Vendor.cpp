@@ -2,48 +2,58 @@
 #include "Vendor.h"
 #include <iostream>
 // TO DO: function implementations
-using namespace std;
+using namespace std;  //check if needed
 
 // Display vendor profile
-void Vendor::displayProfile() {
-	cout << "Vendor: " << username << ", Email: " << email << endl;
+void Vendor::displayProfile() const {
+	cout << "Vendor: " << username << ", Email: " << email << "Bio: " << bio << endl;
+}
+
+// Modify vendor password
+void Vendor::modifyPassword(string newPassword) {
+	password = newPassword;
+	cout << "Password updated successfully" << endl;
 }
 
 // Add a product to the vendor's product list
 void Vendor::addProduct(Product* product) {
 	products.add(product);
+	cout << "Product added successfully" << endl;
 }
 
 // Delete a product from the vendor's product list
 void Vendor::deleteProduct(int index) {
-	if (index >= 0 && index < products.getCurrentSize()) {
-		products.remove(products.toVector()[index]);
+    if (index < products.getCurrentSize()) {
+    	products.remove(products.findKthItem(index));
+    	cout << "Product deleted successfully" << endl;
 	} else {
-		cout << "Error: Invalid index. The maximum index is " << products.getCurrentSize() - 1 << endl;
+		cout << "Error: Invalid index. The maximum index is " << products.getCurrentSize() << endl;
 	}
 }
 
 // Modify a product's name and description
-void Vendor::modifyProduct(int index, string name, string desc) {
-	if (index >= 0 && index < products.getCurrentSize()) {
-		vector<Product*> productList = products.toVector();
-		productList[index]->setName(name);
-		productList[index]->setDescription(desc);
+void Vendor::modifyProduct(int index, string name, string description) {
+	if (index < products.getCurrentSize()) {
+		Product* product = products.findKthItem(index);
+		product->setName(name);
+		product->setDescription(description);
+		cout << "Product modified successfully" << endl;
 	} else {
-		cout << "Error: Invalid index. The maximum index is " << products.getCurrentSize() - 1 << endl;
+		cout << "Invalid index! Available products: " << products.getCurrentSize() << endl;
 	}
 }
 
 // Sell a product by calling its `sell` function
 void Vendor::sellProduct(int index) {
-	if (index >= 0 && index < products.getCurrentSize()) {
-		vector<Product*> productList = products.toVector();
-		productList[index]->sell();
+	if (index < products.getCurrentSize()) {
+		products.findKthItem(index)->sell();
+		cout << "Product sold successfully" << endl;
 	} else {
-		cout << "Error: Invalid index. The maximum index is " << products.getCurrentSize() - 1 << endl;
+		cout << "Invalid index! Available products: " << products.getCurrentSize() << endl;
 	}
 }
 // Operator == overloading implementation
 bool Vendor::operator==(const Vendor& otherVendor) const {
-	return (Vendor::username == otherVendor.username) && (Vendor::email == otherVendor.email);
+	return (username == otherVendor.username) && (email == otherVendor.email);
+
 }
