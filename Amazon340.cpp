@@ -4,7 +4,7 @@
 #include "Amazon340.h"
 
 // TO DO: implement constructor
-Amazon340::Amazon340() { // You can initialize the vendor object if needed.
+Amazon340::Amazon340() : vendor("", "", "", "", ""){} // You can initialize the vendor object if needed.
 
 
 }
@@ -15,7 +15,7 @@ Amazon340::~Amazon340() { // If any dynamic memory allocation was used, dealloca
 }
 void Amazon340::createVendor(const std::string& username, const std::string& email, const std::string& password, const std::string& bio, const std::string& profilePicture){
 	// TO DO: implement function
-	vendor = Vendor(username, email, password, "", "");// Assuming empty bio and profilePicture for now
+	vendor = Vendor(username, email, password, bio, profilePicture);
 }
 
 Vendor Amazon340::getVendor() const{
