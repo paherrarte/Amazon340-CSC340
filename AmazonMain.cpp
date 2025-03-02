@@ -44,10 +44,10 @@ void displayVendorMenu(Vendor& vendor){
 			}
 			case 2: {
 				// TO DO: ask for new password and update vendor's password
-				string newPassword;
+				string newPass;
 				cout << "Enter new password: ";
-				cin >> newPassword;
-				vendor.setPassword(newPassword);
+				cin >> newPass;
+				vendor.modifyPassword(newPass);
 				cout << "New password set successfully.\n";
 				break;
 			}
@@ -57,16 +57,14 @@ void displayVendorMenu(Vendor& vendor){
 				string name, description;
 				double rating;
 				cout << "Enter product name: ";
-				cin.ignore();
+				cin.name;
 				getline(cin, name);
 				cout << "Enter product description: ";
-				getline(cin, description);
+				cin >>description;
 				cout << "Enter product's rating: ";
 				cin >> rating;
 
-				Product newProduct(name, description, rating);
-				vendor.addProduct(newProduct);
-
+				vendor.addProduct(new Product(name, description, rating));
 				cout << "Product added successfully.\n";
 				break;
 			}
@@ -169,18 +167,22 @@ int main(){
 	cout << "\n Welcome to Amazon340:" << endl;
 	// TO DO: Ask the vendor to enter their information 
 	//        Instantiate a new Vendor object
-	string username, email, password;
+	string username, email, password, bio, profilePicture;
 	cout << "Enter username: ";
 	cin >> username;
 	cout << "Enter email: ";
 	cin >> email;
 	cout << "Enter password: ";
 	cin >> password;
-
+	cout << "Enter bio: ";
+    cin.ignore();
+	getline(cin, bio);
+	cout << "Enter profile picture path: ";
+	cin >> profilePicture;
 
 	// call amazon340 createVendor function 
 	// replace /*...*/ with the right parameters
-	amazon340.createVendor(username, email, password);
+	amazon340.createVendor(username, email, password, bio, profilePicture);
 
 	// Retrieve the vendor 
 	Vendor currentVendor = amazon340.getVendor();
@@ -189,4 +191,3 @@ int main(){
 	displayVendorMenu(currentVendor);
 				
 	return 0;
-}
