@@ -2,12 +2,8 @@
 // TO DO: function implementations
 #include "Product.h"
 // ------------------------------------------------------------------------------
-Product::Product(string name, string description, double rating){
-	this->name = name; 
-	this->description = description;
-	this->rating = rating;
-	this->timesSold = 0;
-}
+Product::Product(string name, string description, double rating)
+	:name(name), description(description), rating(rating), timesSold(0){}
 
 //getters
 string Product::getName() const {return name;}

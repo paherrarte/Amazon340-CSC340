@@ -3,11 +3,6 @@
 
 // TO DO: #include any other libraries you need
 #include "Amazon340.h"
-#include "Vendor.h"
-#include "Product.h"
-#include "LinkedBag.h"
-
-
 
 
 using namespace std;
@@ -38,34 +33,60 @@ void displayVendorMenu(Vendor& vendor){
 		switch (vendorChoice) {
 			case 1:{
 				// TO DO: display vendor's profile information
-                vendor.displayProfile();
 				//      : e.g. vendor.displayProfile();
+				vendor.displayProfile();
 				break;
 			}
 			case 2: {
 				// TO DO: ask for new password and update vendor's password
 				string newPass;
-				cout << "Enter new password: ";
+				cout << "Enter New Password: ";
 				cin >> newPass;
 				vendor.modifyPassword(newPass);
-				cout << "New password set successfully.\n";
 				break;
 			}
 			case 3: {
 				// TO DO: ask vendor to choose product type, then ask them to input product details.
 				// Create the product and add it to the vendor's products
+				int productType;
 				string name, description;
 				double rating;
-				cout << "Enter product name: ";
-				cin.name;
-				getline(cin, name);
-				cout << "Enter product description: ";
-				cin >>description;
-				cout << "Enter product's rating: ";
-				cin >> rating;
 
-				vendor.addProduct(new Product(name, description, rating));
-				cout << "Product added successfully.\n";
+				cout << "Enter Product Type:\n1. Goods\n2. Media\nChoice: ";
+				cin >> productType;
+				cin.ignore();
+				
+				cout << "Enter Product Name: ";
+				getline(cin, name);
+
+				cout << "Enter Product Description: ";
+				getline(cin, description);
+
+				cout << "Enter Product Rating (0-5): ";
+				cin >> rating;
+				cin.ignore();
+
+				if(productType == 1){
+					string expirationDate;
+					int quantity;
+					cout << "Enter Expiration Date: ";
+					getline(cin, expirationDate);
+					cout << "Enter Quantity: ";
+					cin >> quantity;
+
+					vendor.addProduct(new Goods(name, description, rating, expirationDate, quantity));
+				} else if(productType == 2){
+					string type, targetAudience;
+					cout << "Enter media type (e.g., Movie, Book, Music): ";
+                    getline(cin, type);
+                    cout << "Enter target audience: ";
+                    getline(cin, targetAudience);
+
+					vendor.addProduct(new Media(name, description, rating, type, targetAudience));
+				} else{
+					cout << "Invalid Product Type!" << endl;
+				}
+				
 				break;
 			}
 			case 4:{
@@ -79,13 +100,9 @@ void displayVendorMenu(Vendor& vendor){
 				// Find the Kth product, if k > Linked Bag size, 
 				//    return an error message that includes the size of the Linked Bag
 				int k;
-				cout << "Enter product index: ";
+				cout << "Enter Product Index: ";
 				cin >> k;
-				if (k < vendor.getProductCount()) {
-					vendor.displayKthProduct(k);
-				} else {
-					cout << "Error: Index not in range. Max: " << vendor.getProductCount() - 1 << endl;
-				}
+				vendor.displayKthProduct(k);
 				break;
 			}
 			case 6: {
@@ -95,22 +112,18 @@ void displayVendorMenu(Vendor& vendor){
 				// If index > Linked Bag size, 
 				//    return an error message that includes the size of the Linked Bag
 				int index;
-				string newName, newDesc;
-				cout << "Enter product index to modify: ";
+				string newName, newDescription;
+				cout << "Enter Product Index to Modify: ";
 				cin >> index;
 				cin.ignore();
 
-				if (index < vendor.getProductCount()) {
-					cout << "Enter new product name: ";
-					getline(cin, newName);
-					cout << "Enter new product description: ";
-					getline(cin, newDesc);
+				cout << "Enter New Product Name: ";
+				getline(cin, newName);
+				cout << "Enter New Product Description: ";
+				getline(cin, newDescription);
 
-					vendor.modifyProduct(index, newName, newDesc);
-					cout << "Product modified successfully.\n";
-				} else {
-					cout << "Error: Index out of range. Max: " << vendor.getProductCount() - 1 << endl;
-				}
+				vendor.modifyProduct(index, newName, newDescription);
+
 				break;
 			}
 			case 7: {
@@ -119,15 +132,9 @@ void displayVendorMenu(Vendor& vendor){
 				// If index > LinkedBag size, 
 				//    return an error message that includes the size of the Linked Bag
 				int index;
-				cout << "Enter product index you want to sell: ";
-				cin >> index;
-
-				if (index < vendor.getProductCount()) {
-					vendor.sellProduct(index);
-					cout << "Product sold successfully.\n";
-				} else {
-					cout << "Error: Index not in range.\n";
-				}
+				cout << "Enter Product Index to Sell: ";
+				cin >> index; 
+				vendor.sellProduct(index);
 				break;
 			}
 			case 8:{
@@ -136,15 +143,9 @@ void displayVendorMenu(Vendor& vendor){
 				// If index > LinkedBag size, 
 				//    return an error message that includes the size of the Linked Bag
 				int index;
-				cout << "Enter product index to delete: ";
+				cout << "Enter Index of Product to Delete: "; 
 				cin >> index;
-
-				if (index < vendor.getProductCount()) {
-					vendor.deleteProduct(index);
-					cout << "Product removed successfully.\n";
-				} else {
-					cout << "Error: Index not in range.\n";
-				}
+				vendor.deleteProduct(index);
 				break;
 			}
 			case 0: {
@@ -168,17 +169,16 @@ int main(){
 	// TO DO: Ask the vendor to enter their information 
 	//        Instantiate a new Vendor object
 	string username, email, password, bio, profilePicture;
-	cout << "Enter username: ";
-	cin >> username;
-	cout << "Enter email: ";
-	cin >> email;
-	cout << "Enter password: ";
-	cin >> password;
-	cout << "Enter bio: ";
-    cin.ignore();
+	cout << "Enter Username: ";
+	getline(cin, username);
+	cout << "Enter Email: ";
+	getline(cin, email);
+	cout << "Enter Password: ";
+	getline(cin, password);
+	cout << "Enter Bio: ";
 	getline(cin, bio);
-	cout << "Enter profile picture path: ";
-	cin >> profilePicture;
+	cout << "Enter Profile Picture Path: ";
+	getline(cin, profilePicture);
 
 	// call amazon340 createVendor function 
 	// replace /*...*/ with the right parameters
@@ -191,3 +191,4 @@ int main(){
 	displayVendorMenu(currentVendor);
 				
 	return 0;
+}

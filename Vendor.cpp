@@ -4,56 +4,82 @@
 // TO DO: function implementations
 using namespace std;  //check if needed
 
-// Display vendor profile
-void Vendor::displayProfile() const {
-	cout << "Vendor: " << username << ", Email: " << email << "Bio: " << bio << endl;
+Vendor::Vendor(string user, string mail, string pass, string bio, string pic)
+	: username(user), email(mail), password(pass), bio(bio), profilePicture(pic){}
+
+void Vendor::displayProfile() const{
+	cout << "Vendor: " << username << ", Email: " << email << ", Bio: " << bio << endl;
 }
 
-// Modify vendor password
-void Vendor::modifyPassword(string newPassword) {
+void Vendor::modifyPassword(const string& newPassword){
 	password = newPassword;
-	cout << "Password updated successfully" << endl;
+	cout << "Password updated succesfully." << endl;
 }
 
-// Add a product to the vendor's product list
-void Vendor::addProduct(Product* product) {
+void Vendor::addProduct(Product* product){
 	products.add(product);
-	cout << "Product added successfully" << endl;
+	cout << "Product added successfully: " << product->getName() << endl;
 }
 
-// Delete a product from the vendor's product list
-void Vendor::deleteProduct(int index) {
-    if (index < products.getCurrentSize()) {
-    	products.remove(products.findKthItem(index));
-    	cout << "Product deleted successfully" << endl;
-	} else {
-		cout << "Error: Invalid index. The maximum index is " << products.getCurrentSize() << endl;
-	}
-}
-
-// Modify a product's name and description
-void Vendor::modifyProduct(int index, string name, string description) {
-	if (index < products.getCurrentSize()) {
-		Product* product = products.findKthItem(index);
-		product->setName(name);
-		product->setDescription(description);
-		cout << "Product modified successfully" << endl;
-	} else {
+void Vendor::deleteProduct(int index){
+	if(index < 0 || index >= products.getCurrentSize()){
 		cout << "Invalid index! Available products: " << products.getCurrentSize() << endl;
+		return;
+	}
+
+	Product* product = products.findKthItem(index)->getItem();
+	products.remove(product);
+	delete product;
+	cout << "Product delted successfully." << endl;
+}
+
+void Vendor::modifyProduct(int index, string name, string description){
+	if(index < 0 || index >= products.getCurrentSize()){
+		cout << "Invalid index! Available products: " << products.getCurrentSize() << endl;
+		return;
+	}
+
+	Product* product = products.findKthItem(index)->getItem();
+	product->setName(name);
+	product->setDescription(description);
+	cout << "Product modified successfully." << endl;
+}
+
+void Vendor::sellProduct(int index){
+	if(index < 0 || index >= products.getCurrentSize()){
+        cout << "Invalid index! Available products: " << products.getCurrentSize() << endl;
+        return;
+	}
+
+	products.findKthItem(index)->getItem()->sell();
+}
+
+void Vendor::displayAllProducts() const {
+	if(products.isEmpty()){
+		cout << "No products available." << endl;
+		return;
+	}
+
+	vector<Product*> productList = products.toVector();
+	cout << "Vendor's Products:\n";
+	for(size_t i=0; i < productList.size(); i++){
+        cout << i + 1 << ". " << productList[i]->getName() << " - " << productList[i]->getDescription() << endl;
 	}
 }
 
-// Sell a product by calling its `sell` function
-void Vendor::sellProduct(int index) {
-	if (index < products.getCurrentSize()) {
-		products.findKthItem(index)->sell();
-		cout << "Product sold successfully" << endl;
-	} else {
-		cout << "Invalid index! Available products: " << products.getCurrentSize() << endl;
-	}
+void Vendor::displayKthProduct(int index) const{
+	if (index < 0 || index >= products.getCurrentSize()) {
+        cout << "Invalid index! Available products: " << products.getCurrentSize() << endl;
+        return;
+    }
+
+	Product* product = products.findKthItem(index)->getItem();
+    cout << "Product Details: " << product->getName() << " - " << product->getDescription() << endl;
 }
+
 // Operator == overloading implementation
 bool Vendor::operator==(const Vendor& otherVendor) const {
 	return (username == otherVendor.username) && (email == otherVendor.email);
-
 }
+
+
