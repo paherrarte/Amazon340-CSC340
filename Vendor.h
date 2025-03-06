@@ -4,7 +4,6 @@
 
 #include <iostream>
 #include <string>
-#include "LinkedBag.h"
 #include "Product.h"
 #include "Goods.h"
 #include "Media.h"
