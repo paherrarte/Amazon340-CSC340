@@ -9,6 +9,7 @@
      
      #include "BagInterface.h"
      #include "Node.h"
+     #include "../Product.h"
      
      template<class ItemType>
      class LinkedBag : public BagInterface<ItemType>
@@ -45,6 +46,7 @@
      
      
      }; // end LinkedBag
-     
-     #include "LinkedBag.cpp"
+
+     extern template class LinkedBag<Product*>;
+
      #endif

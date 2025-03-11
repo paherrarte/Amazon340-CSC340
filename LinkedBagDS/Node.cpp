@@ -4,7 +4,7 @@
 /** @file Node.cpp 
     Listing 4-2 */
     #include "Node.h"
-    //#include <cstddef>
+    #include <cstddef>
     
     template<class ItemType>
     Node<ItemType>::Node() : next(nullptr)
@@ -45,4 +45,5 @@
     {
        return next;
     } // end getNext
-    
+
+    template class Node<Product*>;

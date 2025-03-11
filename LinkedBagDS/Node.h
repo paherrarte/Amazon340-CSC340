@@ -5,6 +5,7 @@
     Listing 4-1 */
     #ifndef NODE_
     #define NODE_
+    #include "../Product.h"
     
     template<class ItemType>
     class Node
@@ -22,6 +23,7 @@
        ItemType getItem() const ;
        Node<ItemType>* getNext() const ;
     }; // end Node
+
+    extern template class Node<Product*>;
     
-    #include "Node.cpp"
     #endif

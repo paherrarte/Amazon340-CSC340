@@ -5,7 +5,6 @@
 	 @file LinkedBag.cpp */
 
      #include "LinkedBag.h"
-     #include "Node.h"
      #include <cstddef>
      
      
@@ -229,6 +228,8 @@
          
          return curPtr;
      } // end getPointerTo
-     
+
+     template class LinkedBag<Product*>;
+
      
      
