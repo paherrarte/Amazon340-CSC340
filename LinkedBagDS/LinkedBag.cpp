@@ -11,7 +11,58 @@
      
      // Assignment 2 functions -------------------------------------------
      // TO DO: implement the two functions here
-     
+     template<class ItemType>
+     bool LinkedBag<ItemType>::appendK(const ItemType& newEntry, const int& k){
+        if(k <= 0 || headPtr == nullptr){
+            return add(newEntry);
+        }
+        Node<ItemType>* prevPtr = nullptr;
+        Node<ItemType>* curPtr = headPtr;
+        int index = 0;
+        while (curPtr != nullptr && index < k) {
+            prevPtr = curPtr;
+            curPtr = curPtr->getNext();
+            index++;
+        }
+        Node<ItemType>* newNode = new Node<ItemType>(newEntry, curPtr);
+        if (prevPtr != nullptr) {
+            prevPtr->setNext(newNode);
+        } else {
+            headPtr = newNode;
+        }
+        itemCount++;
+        return true;    
+     }
+
+     template<class ItemType>
+     Node<ItemType>* LinkedBag<ItemType>::reverseFindKthItem(const int& k){
+        if(k <= 0|| k > itemCount){
+            return nullptr;
+        }
+        Node<ItemType>* leadPtr = headPtr;
+        Node<ItemType>* followPtr = headPtr;
+        for (int i = 0; i < k; i++) {
+            if (leadPtr == nullptr) return nullptr;
+            leadPtr = leadPtr->getNext();
+        }
+        while (leadPtr != nullptr) {
+            leadPtr = leadPtr->getNext();
+            followPtr = followPtr->getNext();
+        }
+        return followPtr;    
+     }
+
+     template<class ItemType>
+     Node<ItemType>* LinkedBag<ItemType>::findKthItem(const int& k) const{
+        if (k < 0 || k >= itemCount) {
+            return nullptr;
+        }
+        Node<ItemType>* curPtr = headPtr;
+        for (int i = 0; i < k && curPtr != nullptr; i++) {
+            curPtr = curPtr->getNext();
+        }
+        return curPtr;
+     }
      // ------------------------------------------------------------------
      
      template<class ItemType>

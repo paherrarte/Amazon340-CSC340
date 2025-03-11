@@ -27,10 +27,13 @@ void Vendor::deleteProduct(int index){
 		return;
 	}
 
-	Product* product = products.findKthItem(index)->getItem();
-	products.remove(product);
-	delete product;
-	cout << "Product delted successfully." << endl;
+    Node<Product*>* productNode = products.findKthItem(index);
+    if (productNode) {
+        Product* product = productNode->getItem();
+        products.remove(product);
+        delete product;
+        cout << "Product deleted successfully." << endl;
+    }
 }
 
 void Vendor::modifyProduct(int index, string name, string description){
@@ -39,10 +42,13 @@ void Vendor::modifyProduct(int index, string name, string description){
 		return;
 	}
 
-	Product* product = products.findKthItem(index)->getItem();
-	product->setName(name);
-	product->setDescription(description);
-	cout << "Product modified successfully." << endl;
+    Node<Product*>* productNode = products.findKthItem(index);
+    if (productNode) {
+        Product* product = productNode->getItem();
+        product->setName(name);
+        product->setDescription(description);
+        cout << "Product modified successfully." << endl;
+    }
 }
 
 void Vendor::sellProduct(int index){
@@ -51,7 +57,10 @@ void Vendor::sellProduct(int index){
         return;
 	}
 
-	products.findKthItem(index)->getItem()->sell();
+    Node<Product*>* productNode = products.findKthItem(index);
+    if (productNode) {
+        productNode->getItem()->sell();
+    }
 }
 
 void Vendor::displayAllProducts() const {
@@ -68,13 +77,16 @@ void Vendor::displayAllProducts() const {
 }
 
 void Vendor::displayKthProduct(int index) const{
-	if (index < 0 || index >= products.getCurrentSize()) {
+    if (index < 0 || index >= products.getCurrentSize()) {
         cout << "Invalid index! Available products: " << products.getCurrentSize() << endl;
         return;
     }
-
-	Product* product = products.findKthItem(index)->getItem();
-    cout << "Product Details: " << product->getName() << " - " << product->getDescription() << endl;
+    
+    Node<Product*>* productNode = products.findKthItem(index);
+    if (productNode) {
+        Product* product = productNode->getItem();
+        cout << "Product Details: " << product->getName() << " - " << product->getDescription() << endl;
+    }
 }
 
 // Operator == overloading implementation
