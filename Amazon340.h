@@ -14,11 +14,21 @@ class Amazon340 {
 		Vendor vendor;
 
 	public:
+		// Constructor
 		Amazon340();
 
+		// BIG 3
+		~Amazon340() = default;
+		Amazon340(const Amazon340& other) = default;
+		Amazon340& operator=(const Amazon340& other) = default;
+
+		// Member functions
 		void createVendor(const std::string& username, const std::string& email, const std::string& password, const std::string& bio, const std::string& profilePicture);
 
 		Vendor& getVendor();
+
+		// Friend function for output
+		friend ostream& operator<<(ostream& os, const Amazon340& amazon);
 };
 
 #endif

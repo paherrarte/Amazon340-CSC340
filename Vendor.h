@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <string>
+#include <memory>
 #include "Product.h"
 #include "Goods.h"
 #include "Media.h"
@@ -19,16 +20,23 @@ private:
     string password;
     string bio;
     string profilePicture;
-    LinkedBag<Product*> products; // Stores vendor’s products
+    LinkedBag<shared_ptr<Product>> products; // Using smart pointers instead of raw pointers
+
 public:
     // Constructor
     Vendor(string user, string mail, string pass, string bio, string pic);
+    
+    // BIG 3
+    ~Vendor(); // Destructor
+    Vendor(const Vendor& other); // Copy constructor
+    Vendor& operator=(const Vendor& other); // Assignment operator
+
     // Display vendor profile
-    void displayProfile()const;
+    void displayProfile() const;
     void modifyPassword(const string& newPassword);
 
     // Product management
-    void addProduct(Product* product);
+    void addProduct(shared_ptr<Product> product);
     void deleteProduct(int index);
     void modifyProduct(int index, string name, string desc);
     void sellProduct(int index);
@@ -40,14 +48,17 @@ public:
     //Getters
     string getUsername() const { return username; }
     string getEmail() const { return email; }
-    int getProductCount() const {return products.getCurrentSize();}
+    string getPassword() const { return password; }
+    string getBio() const { return bio; }
+    string getProfilePicture() const { return profilePicture; }
+    int getProductCount() const { return products.getCurrentSize(); }
 
-// This is a function that allows you to compare two vendors based on their username and email address.  
-// You may directly include it in your class definition. 
-// You don't need to modify it but will have to put it inside your class. 
-// Operator == overloading function prototype:
+    // Friend functions for I/O
+    friend ostream& operator<<(ostream& os, const Vendor& vendor);
+    friend istream& operator>>(istream& is, Vendor& vendor);
+
+    // Operator == overloading
     bool operator==(const Vendor& otherVendor) const;
-
 };
 
 #endif

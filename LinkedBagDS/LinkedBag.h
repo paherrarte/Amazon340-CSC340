@@ -1,5 +1,5 @@
-//  Created by Frank M. Carrano and Timothy M. Henry.
-//  Copyright (c) 2017 Pearson Education, Hoboken, New Jersey.
+//  Created by Frank M. Carrano and Timothy M. Henry.
+//  Copyright (c) 2017 Pearson Education, Hoboken, New Jersey.
 
 /** ADT bag: Link-based implementation.
 	 @file LinkedBag.h 
@@ -10,6 +10,7 @@
      #include "BagInterface.h"
      #include "Node.h"
      #include "../Product.h"
+     #include <memory>
      
      template<class ItemType>
      class LinkedBag : public BagInterface<ItemType>
@@ -27,6 +28,7 @@
          LinkedBag();
          LinkedBag(const LinkedBag<ItemType>& aBag); // Copy constructor
          virtual ~LinkedBag();						// Destructor should be virtual
+         LinkedBag<ItemType>& operator=(const LinkedBag<ItemType>& aBag); // Assignment operator
      
          // Assignment 2 functions -------------------------------------------
          bool appendK(const ItemType& newEntry, const int& k);
@@ -47,6 +49,8 @@
      
      }; // end LinkedBag
 
+     // Template instantiations
      extern template class LinkedBag<Product*>;
+     extern template class LinkedBag<std::shared_ptr<Product>>;
 
      #endif

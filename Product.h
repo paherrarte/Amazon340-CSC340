@@ -18,9 +18,13 @@ class Product{
     int timesSold;
 
     public:
+    // Constructor
     Product(string name, string description, double rating);
 
-    virtual ~Product(){}
+    // BIG 3
+    virtual ~Product() = default;
+    Product(const Product& other) = default;
+    Product& operator=(const Product& other) = default;
 
     //Getters
     string getName() const;
@@ -35,6 +39,14 @@ class Product{
 
     //sell function
     virtual void sell() = 0;
+
+    // Virtual functions
+    virtual void display(ostream& os) const = 0;
+    virtual void input(istream& is) = 0;
+
+    // Friend functions for I/O
+    friend ostream& operator<<(ostream& os, const Product& product);
+    friend istream& operator>>(istream& is, Product& product);
 
     //operator overload
     bool operator==(const Product& otherProduct) const; 

@@ -5,6 +5,7 @@
     Listing 4-2 */
     #include "Node.h"
     #include <cstddef>
+    #include <memory>
     
     template<class ItemType>
     Node<ItemType>::Node() : next(nullptr)
@@ -46,4 +47,6 @@
        return next;
     } // end getNext
 
+    // Template instantiations
     template class Node<Product*>;
+    template class Node<std::shared_ptr<Product>>;

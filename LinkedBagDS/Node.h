@@ -5,6 +5,7 @@
     Listing 4-1 */
     #ifndef NODE_
     #define NODE_
+    #include <memory>
     #include "../Product.h"
     
     template<class ItemType>
@@ -24,6 +25,8 @@
        Node<ItemType>* getNext() const ;
     }; // end Node
 
+    // Template instantiations
     extern template class Node<Product*>;
+    extern template class Node<std::shared_ptr<Product>>;
     
     #endif

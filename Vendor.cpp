@@ -1,11 +1,49 @@
 // TO DO: #include needed standard libraries and your own libraries here
 #include "Vendor.h"
 #include <iostream>
+#include <memory>
 // TO DO: function implementations
 using namespace std;  //check if needed
 
 Vendor::Vendor(string user, string mail, string pass, string bio, string pic)
 	: username(user), email(mail), password(pass), bio(bio), profilePicture(pic){}
+
+// BIG 3 Implementation
+Vendor::~Vendor() {
+	// No need to manually delete products as shared_ptr handles memory management
+}
+
+Vendor::Vendor(const Vendor& other)
+	: username(other.username), email(other.email), password(other.password),
+	  bio(other.bio), profilePicture(other.profilePicture) {
+	// Copy products using shared_ptr
+	vector<shared_ptr<Product>> productList = other.products.toVector();
+	for (const auto& product : productList) {
+		products.add(product);
+	}
+}
+
+Vendor& Vendor::operator=(const Vendor& other) {
+	if (this != &other) {
+		username = other.username;
+		email = other.email;
+		password = other.password;
+		bio = other.bio;
+		profilePicture = other.profilePicture;
+		
+		// Clear existing products
+		while (!products.isEmpty()) {
+			products.remove(products.findKthItem(0)->getItem());
+		}
+		
+		// Copy products
+		vector<shared_ptr<Product>> productList = other.products.toVector();
+		for (const auto& product : productList) {
+			products.add(product);
+		}
+	}
+	return *this;
+}
 
 void Vendor::displayProfile() const{
 	cout << "Vendor: " << username << ", Email: " << email << ", Bio: " << bio << endl;
@@ -13,10 +51,10 @@ void Vendor::displayProfile() const{
 
 void Vendor::modifyPassword(const string& newPassword){
 	password = newPassword;
-	cout << "Password updated succesfully." << endl;
+	cout << "Password updated successfully." << endl;
 }
 
-void Vendor::addProduct(Product* product){
+void Vendor::addProduct(shared_ptr<Product> product){
 	products.add(product);
 	cout << "Product added successfully: " << product->getName() << endl;
 }
@@ -27,13 +65,12 @@ void Vendor::deleteProduct(int index){
 		return;
 	}
 
-    Node<Product*>* productNode = products.findKthItem(index);
-    if (productNode) {
-        Product* product = productNode->getItem();
-        products.remove(product);
-        delete product;
-        cout << "Product deleted successfully." << endl;
-    }
+	auto productNode = products.findKthItem(index);
+	if (productNode) {
+		auto product = productNode->getItem();
+		products.remove(product);
+		cout << "Product deleted successfully." << endl;
+	}
 }
 
 void Vendor::modifyProduct(int index, string name, string description){
@@ -42,13 +79,13 @@ void Vendor::modifyProduct(int index, string name, string description){
 		return;
 	}
 
-    Node<Product*>* productNode = products.findKthItem(index);
-    if (productNode) {
-        Product* product = productNode->getItem();
-        product->setName(name);
-        product->setDescription(description);
-        cout << "Product modified successfully." << endl;
-    }
+	auto productNode = products.findKthItem(index);
+	if (productNode) {
+		auto product = productNode->getItem();
+		product->setName(name);
+		product->setDescription(description);
+		cout << "Product modified successfully." << endl;
+	}
 }
 
 void Vendor::sellProduct(int index){
@@ -57,10 +94,10 @@ void Vendor::sellProduct(int index){
         return;
 	}
 
-    Node<Product*>* productNode = products.findKthItem(index);
-    if (productNode) {
-        productNode->getItem()->sell();
-    }
+	auto productNode = products.findKthItem(index);
+	if (productNode) {
+		productNode->getItem()->sell();
+	}
 }
 
 void Vendor::displayAllProducts() const {
@@ -69,7 +106,7 @@ void Vendor::displayAllProducts() const {
 		return;
 	}
 
-	vector<Product*> productList = products.toVector();
+	vector<shared_ptr<Product>> productList = products.toVector();
 	cout << "Vendor's Products:\n";
 	for(size_t i=0; i < productList.size(); i++){
         cout << i + 1 << ". " << productList[i]->getName() << " - " << productList[i]->getDescription() << endl;
@@ -82,14 +119,37 @@ void Vendor::displayKthProduct(int index) const{
         return;
     }
     
-    Node<Product*>* productNode = products.findKthItem(index);
+    auto productNode = products.findKthItem(index);
     if (productNode) {
-        Product* product = productNode->getItem();
+        auto product = productNode->getItem();
         cout << "Product Details: " << product->getName() << " - " << product->getDescription() << endl;
     }
 }
 
-// Operator == overloading implementation
+// I/O Operator Overloading
+ostream& operator<<(ostream& os, const Vendor& vendor) {
+	os << "Username: " << vendor.username << "\n"
+	   << "Email: " << vendor.email << "\n"
+	   << "Bio: " << vendor.bio << "\n"
+	   << "Profile Picture: " << vendor.profilePicture << "\n"
+	   << "Number of Products: " << vendor.products.getCurrentSize();
+	return os;
+}
+
+istream& operator>>(istream& is, Vendor& vendor) {
+	cout << "Enter username: ";
+	getline(is, vendor.username);
+	cout << "Enter email: ";
+	getline(is, vendor.email);
+	cout << "Enter password: ";
+	getline(is, vendor.password);
+	cout << "Enter bio: ";
+	getline(is, vendor.bio);
+	cout << "Enter profile picture path: ";
+	getline(is, vendor.profilePicture);
+	return is;
+}
+
 bool Vendor::operator==(const Vendor& otherVendor) const {
 	return (username == otherVendor.username) && (email == otherVendor.email);
 }

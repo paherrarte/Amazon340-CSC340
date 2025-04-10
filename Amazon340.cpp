@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include "Amazon340.h"
+using namespace std;
 
 // TO DO: implement constructor
 Amazon340::Amazon340() : vendor("", "", "", "", "") {}
@@ -16,4 +17,10 @@ void Amazon340::createVendor(const std::string& username, const std::string& ema
 Vendor& Amazon340::getVendor() {
 	// TO DO: implement function
 	return vendor;
+}
+
+// Output operator implementation
+ostream& operator<<(ostream& os, const Amazon340& amazon) {
+	os << "Welcome to Amazon340!";
+	return os;
 }

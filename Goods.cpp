@@ -25,3 +25,29 @@ void Goods::sell(){
         cout << "Error: " << name << " is sold out." << endl;
     }
 }
+
+// Display function
+void Goods::display(ostream& os) const {
+    os << "Goods: " << name << "\n"
+       << "Description: " << description << "\n"
+       << "Rating: " << rating << "\n"
+       << "Expiration Date: " << expirationDate << "\n"
+       << "Quantity: " << quantity << "\n"
+       << "Times Sold: " << timesSold;
+}
+
+// Input function
+void Goods::input(istream& is) {
+    cout << "Enter product name: ";
+    getline(is, name);
+    cout << "Enter description: ";
+    getline(is, description);
+    cout << "Enter rating (0-5): ";
+    is >> rating;
+    is.ignore();
+    cout << "Enter expiration date: ";
+    getline(is, expirationDate);
+    cout << "Enter quantity: ";
+    is >> quantity;
+    is.ignore();
+}
