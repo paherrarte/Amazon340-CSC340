@@ -44,3 +44,40 @@ void Media::input(istream& is) {
     getline(is, targetAudience);
 }
 
+ostream& operator<<(ostream& os, const Media& media) {
+    os << "Media Details:\n"
+       << "Name: " << media.getName() << "\n"
+       << "Description: " << media.getDescription() << "\n"
+       << "Rating: " << media.getRating() << "\n"
+       << "Times Sold: " << media.getTimesSold() << "\n"
+       << "Type: " << media.getType() << "\n"
+       << "Target Audience: " << media.getTargetAudience() << "\n";
+    return os;
+}
+
+istream& operator>>(istream& is, Media& media) {
+    string name, description, type, targetAudience;
+    double rating;
+
+    cout << "Enter Media Information:\n";
+    cout << "Name: ";
+    getline(is, name);
+    cout << "Description: ";
+    getline(is, description);
+    cout << "Rating: ";
+    is >> rating;
+    is.ignore(); // Clear the newline
+    cout << "Type: ";
+    getline(is, type);
+    cout << "Target Audience: ";
+    getline(is, targetAudience);
+
+    media.setName(name);
+    media.setDescription(description);
+    media.setRating(rating);
+    media.setType(type);
+    media.setTargetAudience(targetAudience);
+
+    return is;
+}
+

@@ -50,7 +50,6 @@
      }; // end LinkedBag
 
      // Template instantiations
-     extern template class LinkedBag<Product*>;
      extern template class LinkedBag<std::shared_ptr<Product>>;
 
      #endif

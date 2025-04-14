@@ -128,24 +128,26 @@ void Vendor::displayKthProduct(int index) const{
 
 // I/O Operator Overloading
 ostream& operator<<(ostream& os, const Vendor& vendor) {
-	os << "Username: " << vendor.username << "\n"
+	os << "Vendor Profile:\n"
+	   << "Username: " << vendor.username << "\n"
 	   << "Email: " << vendor.email << "\n"
 	   << "Bio: " << vendor.bio << "\n"
 	   << "Profile Picture: " << vendor.profilePicture << "\n"
-	   << "Number of Products: " << vendor.products.getCurrentSize();
+	   << "Number of Products: " << vendor.products.getCurrentSize() << "\n";
 	return os;
 }
 
 istream& operator>>(istream& is, Vendor& vendor) {
-	cout << "Enter username: ";
+	cout << "Enter Vendor Information:\n";
+	cout << "Username: ";
 	getline(is, vendor.username);
-	cout << "Enter email: ";
+	cout << "Email: ";
 	getline(is, vendor.email);
-	cout << "Enter password: ";
+	cout << "Password: ";
 	getline(is, vendor.password);
-	cout << "Enter bio: ";
+	cout << "Bio: ";
 	getline(is, vendor.bio);
-	cout << "Enter profile picture path: ";
+	cout << "Profile Picture: ";
 	getline(is, vendor.profilePicture);
 	return is;
 }

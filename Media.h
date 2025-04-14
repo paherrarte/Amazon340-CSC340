@@ -29,6 +29,10 @@ public:
     void sell() override;
     void display(ostream& os) const override;
     void input(istream& is) override;
+
+    // Friend functions for I/O
+    friend ostream& operator<<(ostream& os, const Media& media);
+    friend istream& operator>>(istream& is, Media& media);
 };
 
 #endif

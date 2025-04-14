@@ -48,5 +48,4 @@
     } // end getNext
 
     // Template instantiations
-    template class Node<Product*>;
     template class Node<std::shared_ptr<Product>>;

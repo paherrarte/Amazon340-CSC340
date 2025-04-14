@@ -51,3 +51,42 @@ void Goods::input(istream& is) {
     is >> quantity;
     is.ignore();
 }
+
+ostream& operator<<(ostream& os, const Goods& goods) {
+    os << "Goods Details:\n"
+       << "Name: " << goods.getName() << "\n"
+       << "Description: " << goods.getDescription() << "\n"
+       << "Rating: " << goods.getRating() << "\n"
+       << "Times Sold: " << goods.getTimesSold() << "\n"
+       << "Expiration Date: " << goods.getExpirationDate() << "\n"
+       << "Quantity: " << goods.getQuantity() << "\n";
+    return os;
+}
+
+istream& operator>>(istream& is, Goods& goods) {
+    string name, description, expirationDate;
+    double rating;
+    int quantity;
+
+    cout << "Enter Goods Information:\n";
+    cout << "Name: ";
+    getline(is, name);
+    cout << "Description: ";
+    getline(is, description);
+    cout << "Rating: ";
+    is >> rating;
+    is.ignore(); // Clear the newline
+    cout << "Expiration Date: ";
+    getline(is, expirationDate);
+    cout << "Quantity: ";
+    is >> quantity;
+    is.ignore(); // Clear the newline
+
+    goods.setName(name);
+    goods.setDescription(description);
+    goods.setRating(rating);
+    goods.setExpirationDate(expirationDate);
+    goods.setQuantity(quantity);
+
+    return is;
+}

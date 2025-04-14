@@ -17,17 +17,17 @@ using namespace std;
 void displayVendorMenu(Vendor& vendor) {
 	int vendorChoice = 0;
 	do {
-		cout << "\nHi, " << vendor.getUsername() << ", what would you like to do:\n"
-			 << "1. Display Profile\n"
-			 << "2. Modify Password\n"
-			 << "3. Create Product\n"
-			 << "4. Display All Products\n"
-			 << "5. Display Kth Product\n"
-			 << "6. Modify Product\n"
-			 << "7. Sell Product\n"
-			 << "8. Delete Product\n"
-			 << "0. Logout\n"
-			 << "Choice: ";
+		cout << "\n Hi, "<< vendor.getUsername() <<", what would you like to do:\n"
+		<< "1. Display Profile\n"
+		<< "2. Modify Password\n"
+		<< "3. Create Product\n"
+		<< "4. Display All Products\n"
+		<< "5. Display Kth Product\n"
+		<< "6. Modify Product\n"
+		<< "7. Sell Product\n"
+		<< "8. Delete Product\n"
+		<< "0. Logout\n"
+		<< "Choice: ";
 		cin >> vendorChoice;
 		cin.ignore();
 
@@ -114,7 +114,7 @@ void displayVendorMenu(Vendor& vendor) {
 
 int main() {
 	Amazon340 amazon340;
-	cout << amazon340;
+	cout << amazon340 << endl;
 
 	Vendor currentVendor("", "", "", "", "");
 	cin >> currentVendor;

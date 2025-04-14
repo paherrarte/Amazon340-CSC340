@@ -262,7 +262,6 @@ Node<ItemType>* LinkedBag<ItemType>::getPointerTo(const ItemType& anEntry) const
 } // end getPointerTo
 
 // Template instantiations
-template class LinkedBag<Product*>;
 template class LinkedBag<std::shared_ptr<Product>>;
 
      
