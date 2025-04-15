@@ -10,7 +10,7 @@ Vendor::Vendor(string user, string mail, string pass, string bio, string pic)
 
 // BIG 3 Implementation
 Vendor::~Vendor() {
-	// No need to manually delete products as shared_ptr handles memory management
+	// shared_ptr handles memory management
 }
 
 Vendor::Vendor(const Vendor& other)
@@ -60,7 +60,6 @@ void Vendor::addProduct(shared_ptr<Product> product){
 }
 
 void Vendor::deleteProduct(int index){
-	// Convert from 1-based to 0-based indexing
 	index--;
 	
 	if(index < 0 || index >= products.getCurrentSize()){
@@ -77,7 +76,6 @@ void Vendor::deleteProduct(int index){
 }
 
 void Vendor::modifyProduct(int index, string name, string description, double price) {
-	// Convert from 1-based to 0-based indexing
 	index--;
 	
 	if(index < 0 || index >= products.getCurrentSize()){
@@ -96,7 +94,6 @@ void Vendor::modifyProduct(int index, string name, string description, double pr
 }
 
 void Vendor::sellProduct(int index){
-	// Convert from 1-based to 0-based indexing
 	index--;
 	
 	if(index < 0 || index >= products.getCurrentSize()){
@@ -124,7 +121,6 @@ void Vendor::displayAllProducts() const {
 }
 
 void Vendor::displayKthProduct(int index) const{
-	// Convert from 1-based to 0-based indexing
 	index--;
 	
 	if (index < 0 || index >= products.getCurrentSize()) {
