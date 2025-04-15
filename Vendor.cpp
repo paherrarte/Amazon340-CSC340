@@ -60,8 +60,11 @@ void Vendor::addProduct(shared_ptr<Product> product){
 }
 
 void Vendor::deleteProduct(int index){
+	// Convert from 1-based to 0-based indexing
+	index--;
+	
 	if(index < 0 || index >= products.getCurrentSize()){
-		cout << "Invalid index! Available products: " << products.getCurrentSize() << endl;
+		cout << "Invalid index! Please enter a number between 1 and " << products.getCurrentSize() << endl;
 		return;
 	}
 
@@ -73,9 +76,12 @@ void Vendor::deleteProduct(int index){
 	}
 }
 
-void Vendor::modifyProduct(int index, string name, string description){
+void Vendor::modifyProduct(int index, string name, string description, double price) {
+	// Convert from 1-based to 0-based indexing
+	index--;
+	
 	if(index < 0 || index >= products.getCurrentSize()){
-		cout << "Invalid index! Available products: " << products.getCurrentSize() << endl;
+		cout << "Invalid index! Please enter a number between 1 and " << products.getCurrentSize() << endl;
 		return;
 	}
 
@@ -84,14 +90,18 @@ void Vendor::modifyProduct(int index, string name, string description){
 		auto product = productNode->getItem();
 		product->setName(name);
 		product->setDescription(description);
+		product->setPrice(price);
 		cout << "Product modified successfully." << endl;
 	}
 }
 
 void Vendor::sellProduct(int index){
+	// Convert from 1-based to 0-based indexing
+	index--;
+	
 	if(index < 0 || index >= products.getCurrentSize()){
-        cout << "Invalid index! Available products: " << products.getCurrentSize() << endl;
-        return;
+		cout << "Invalid index! Please enter a number between 1 and " << products.getCurrentSize() << endl;
+		return;
 	}
 
 	auto productNode = products.findKthItem(index);
@@ -109,21 +119,24 @@ void Vendor::displayAllProducts() const {
 	vector<shared_ptr<Product>> productList = products.toVector();
 	cout << "Vendor's Products:\n";
 	for(size_t i=0; i < productList.size(); i++){
-        cout << i + 1 << ". " << productList[i]->getName() << " - " << productList[i]->getDescription() << endl;
+        cout << i + 1 << ". " << productList[i]->getName() << " - " << productList[i]->getDescription() << " - $" << productList[i]->getPrice() << endl;
 	}
 }
 
 void Vendor::displayKthProduct(int index) const{
-    if (index < 0 || index >= products.getCurrentSize()) {
-        cout << "Invalid index! Available products: " << products.getCurrentSize() << endl;
-        return;
-    }
-    
-    auto productNode = products.findKthItem(index);
-    if (productNode) {
-        auto product = productNode->getItem();
-        cout << "Product Details: " << product->getName() << " - " << product->getDescription() << endl;
-    }
+	// Convert from 1-based to 0-based indexing
+	index--;
+	
+	if (index < 0 || index >= products.getCurrentSize()) {
+		cout << "Invalid index! Please enter a number between 1 and " << products.getCurrentSize() << endl;
+		return;
+	}
+	
+	auto productNode = products.findKthItem(index);
+	if (productNode) {
+		auto product = productNode->getItem();
+		cout << "Product Details: " << product->getName() << " - " << product->getDescription() << " - $" << product->getPrice() << endl;
+	}
 }
 
 // I/O Operator Overloading
@@ -138,16 +151,30 @@ ostream& operator<<(ostream& os, const Vendor& vendor) {
 }
 
 istream& operator>>(istream& is, Vendor& vendor) {
-	cout << "Enter Vendor Information:\n";
-	cout << "Username: ";
+	if (&is == &cin) {
+		cout << "Enter Vendor Information:\n";
+		cout << "Username: ";
+	}
 	getline(is, vendor.username);
-	cout << "Email: ";
+	
+	if (&is == &cin) {
+		cout << "Email: ";
+	}
 	getline(is, vendor.email);
-	cout << "Password: ";
+	
+	if (&is == &cin) {
+		cout << "Password: ";
+	}
 	getline(is, vendor.password);
-	cout << "Bio: ";
+	
+	if (&is == &cin) {
+		cout << "Bio: ";
+	}
 	getline(is, vendor.bio);
-	cout << "Profile Picture: ";
+	
+	if (&is == &cin) {
+		cout << "Profile Picture: ";
+	}
 	getline(is, vendor.profilePicture);
 	return is;
 }

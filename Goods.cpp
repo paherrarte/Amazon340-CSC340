@@ -4,8 +4,8 @@
 using namespace std;
 
 //Constructor
-Goods::Goods(string name, string description, double rating, string expirationDate, int quantity)
-    : Product(name, description, rating), expirationDate(expirationDate), quantity(quantity) {}
+Goods::Goods(string name, string description, double rating, double price, string expirationDate, int quantity)
+    : Product(name, description, rating, price), expirationDate(expirationDate), quantity(quantity) {}
 
 //Getters
 string Goods::getExpirationDate() const {return expirationDate;}
@@ -31,6 +31,7 @@ void Goods::display(ostream& os) const {
     os << "Goods: " << name << "\n"
        << "Description: " << description << "\n"
        << "Rating: " << rating << "\n"
+       << "Price: $" << price << "\n"
        << "Expiration Date: " << expirationDate << "\n"
        << "Quantity: " << quantity << "\n"
        << "Times Sold: " << timesSold;
@@ -38,16 +39,36 @@ void Goods::display(ostream& os) const {
 
 // Input function
 void Goods::input(istream& is) {
-    cout << "Enter product name: ";
+    if (&is == &cin) {
+        cout << "Enter product name: ";
+    }
     getline(is, name);
-    cout << "Enter description: ";
+    
+    if (&is == &cin) {
+        cout << "Enter description: ";
+    }
     getline(is, description);
-    cout << "Enter rating (0-5): ";
+    
+    if (&is == &cin) {
+        cout << "Enter rating (0-5): ";
+    }
     is >> rating;
     is.ignore();
-    cout << "Enter expiration date: ";
+    
+    if (&is == &cin) {
+        cout << "Enter price: $";
+    }
+    is >> price;
+    is.ignore();
+    
+    if (&is == &cin) {
+        cout << "Enter expiration date: ";
+    }
     getline(is, expirationDate);
-    cout << "Enter quantity: ";
+    
+    if (&is == &cin) {
+        cout << "Enter quantity: ";
+    }
     is >> quantity;
     is.ignore();
 }
@@ -57,6 +78,7 @@ ostream& operator<<(ostream& os, const Goods& goods) {
        << "Name: " << goods.getName() << "\n"
        << "Description: " << goods.getDescription() << "\n"
        << "Rating: " << goods.getRating() << "\n"
+       << "Price: $" << goods.getPrice() << "\n"
        << "Times Sold: " << goods.getTimesSold() << "\n"
        << "Expiration Date: " << goods.getExpirationDate() << "\n"
        << "Quantity: " << goods.getQuantity() << "\n";
@@ -65,7 +87,7 @@ ostream& operator<<(ostream& os, const Goods& goods) {
 
 istream& operator>>(istream& is, Goods& goods) {
     string name, description, expirationDate;
-    double rating;
+    double rating, price;
     int quantity;
 
     cout << "Enter Goods Information:\n";
@@ -75,16 +97,20 @@ istream& operator>>(istream& is, Goods& goods) {
     getline(is, description);
     cout << "Rating: ";
     is >> rating;
-    is.ignore(); // Clear the newline
+    is.ignore();
+    cout << "Price: $";
+    is >> price;
+    is.ignore();
     cout << "Expiration Date: ";
     getline(is, expirationDate);
     cout << "Quantity: ";
     is >> quantity;
-    is.ignore(); // Clear the newline
+    is.ignore();
 
     goods.setName(name);
     goods.setDescription(description);
     goods.setRating(rating);
+    goods.setPrice(price);
     goods.setExpirationDate(expirationDate);
     goods.setQuantity(quantity);
 

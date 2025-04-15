@@ -50,11 +50,11 @@ void displayVendorMenu(Vendor& vendor) {
 				cin.ignore();
 
 				if (productType == 1) {
-					auto goods = make_shared<Goods>("", "", 0.0, "", 0);
+					auto goods = make_shared<Goods>("", "", 0.0, 0.0, "", 0);
 					cin >> *goods;
 					vendor.addProduct(goods);
 				} else if (productType == 2) {
-					auto media = make_shared<Media>("", "", 0.0, "", "");
+					auto media = make_shared<Media>("", "", 0.0, 0.0, "", "");
 					cin >> *media;
 					vendor.addProduct(media);
 				} else {
@@ -76,6 +76,7 @@ void displayVendorMenu(Vendor& vendor) {
 			case 6: {
 				int index;
 				string newName, newDescription;
+				double newPrice;
 				cout << "Enter Product Index to Modify: ";
 				cin >> index;
 				cin.ignore();
@@ -84,8 +85,11 @@ void displayVendorMenu(Vendor& vendor) {
 				getline(cin, newName);
 				cout << "Enter New Product Description: ";
 				getline(cin, newDescription);
+				cout << "Enter New Price: $";
+				cin >> newPrice;
+				cin.ignore();
 
-				vendor.modifyProduct(index, newName, newDescription);
+				vendor.modifyProduct(index, newName, newDescription, newPrice);
 				break;
 			}
 			case 7: {

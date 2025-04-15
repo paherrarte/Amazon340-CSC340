@@ -2,8 +2,8 @@
 #include <iostream>
 using namespace std;
 
-Media::Media(string name, string description, double rating, string type, string targetAudience)
-    : Product(name, description, rating), type(type), targetAudience(targetAudience) {}
+Media::Media(string name, string description, double rating, double price, string type, string targetAudience)
+    : Product(name, description, rating, price), type(type), targetAudience(targetAudience) {}
 
 // Getters
 string Media::getType() const { return type; }
@@ -24,6 +24,7 @@ void Media::display(ostream& os) const {
     os << "Media: " << name << "\n"
        << "Description: " << description << "\n"
        << "Rating: " << rating << "\n"
+       << "Price: $" << price << "\n"
        << "Type: " << type << "\n"
        << "Target Audience: " << targetAudience << "\n"
        << "Times Sold: " << timesSold;
@@ -31,16 +32,36 @@ void Media::display(ostream& os) const {
 
 // Input function
 void Media::input(istream& is) {
-    cout << "Enter product name: ";
+    if (&is == &cin) {
+        cout << "Enter product name: ";
+    }
     getline(is, name);
-    cout << "Enter description: ";
+    
+    if (&is == &cin) {
+        cout << "Enter description: ";
+    }
     getline(is, description);
-    cout << "Enter rating (0-5): ";
+    
+    if (&is == &cin) {
+        cout << "Enter rating (0-5): ";
+    }
     is >> rating;
     is.ignore();
-    cout << "Enter media type: ";
+    
+    if (&is == &cin) {
+        cout << "Enter price: $";
+    }
+    is >> price;
+    is.ignore();
+    
+    if (&is == &cin) {
+        cout << "Enter media type: ";
+    }
     getline(is, type);
-    cout << "Enter target audience: ";
+    
+    if (&is == &cin) {
+        cout << "Enter target audience: ";
+    }
     getline(is, targetAudience);
 }
 
@@ -49,6 +70,7 @@ ostream& operator<<(ostream& os, const Media& media) {
        << "Name: " << media.getName() << "\n"
        << "Description: " << media.getDescription() << "\n"
        << "Rating: " << media.getRating() << "\n"
+       << "Price: $" << media.getPrice() << "\n"
        << "Times Sold: " << media.getTimesSold() << "\n"
        << "Type: " << media.getType() << "\n"
        << "Target Audience: " << media.getTargetAudience() << "\n";
@@ -57,7 +79,7 @@ ostream& operator<<(ostream& os, const Media& media) {
 
 istream& operator>>(istream& is, Media& media) {
     string name, description, type, targetAudience;
-    double rating;
+    double rating, price;
 
     cout << "Enter Media Information:\n";
     cout << "Name: ";
@@ -66,7 +88,10 @@ istream& operator>>(istream& is, Media& media) {
     getline(is, description);
     cout << "Rating: ";
     is >> rating;
-    is.ignore(); // Clear the newline
+    is.ignore();
+    cout << "Price: $";
+    is >> price;
+    is.ignore();
     cout << "Type: ";
     getline(is, type);
     cout << "Target Audience: ";
@@ -75,6 +100,7 @@ istream& operator>>(istream& is, Media& media) {
     media.setName(name);
     media.setDescription(description);
     media.setRating(rating);
+    media.setPrice(price);
     media.setType(type);
     media.setTargetAudience(targetAudience);
 

@@ -12,7 +12,7 @@ private:
 
 public:
     // Constructor
-    Goods(string name, string description, double rating, string expirationDate, int quantity);
+    Goods(string name, string description, double rating, double price, string expirationDate, int quantity);
 
     // BIG 3
     ~Goods() override = default;

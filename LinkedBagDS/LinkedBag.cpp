@@ -62,41 +62,6 @@ Node<ItemType>* LinkedBag<ItemType>::findKthItem(const int& k) const {
     return curPtr;
 }
 
-// Assignment operator implementation
-template<class ItemType>
-LinkedBag<ItemType>& LinkedBag<ItemType>::operator=(const LinkedBag<ItemType>& aBag) {
-    if (this != &aBag) {
-        // Clear the current list
-        clear();
-        
-        // Copy the item count
-        itemCount = aBag.itemCount;
-        
-        // Copy the nodes
-        Node<ItemType>* origChainPtr = aBag.headPtr;
-        if (origChainPtr != nullptr) {
-            // Copy first node
-            headPtr = new Node<ItemType>();
-            headPtr->setItem(origChainPtr->getItem());
-            
-            // Copy remaining nodes
-            Node<ItemType>* newChainPtr = headPtr;
-            origChainPtr = origChainPtr->getNext();
-            
-            while (origChainPtr != nullptr) {
-                ItemType nextItem = origChainPtr->getItem();
-                Node<ItemType>* newNodePtr = new Node<ItemType>(nextItem);
-                newChainPtr->setNext(newNodePtr);
-                newChainPtr = newChainPtr->getNext();
-                origChainPtr = origChainPtr->getNext();
-            }
-            
-            newChainPtr->setNext(nullptr);
-        }
-    }
-    return *this;
-}
-
 // ------------------------------------------------------------------
 
 template<class ItemType>
@@ -260,6 +225,41 @@ Node<ItemType>* LinkedBag<ItemType>::getPointerTo(const ItemType& anEntry) const
     
     return curPtr;
 } // end getPointerTo
+
+template<class ItemType>
+LinkedBag<ItemType>& LinkedBag<ItemType>::operator=(const LinkedBag<ItemType>& aBag) {
+    if (this != &aBag) {
+        clear();  // Remove current contents
+
+        // Copy item count
+        itemCount = aBag.itemCount;
+
+        // Copy linked list nodes
+        if (aBag.headPtr == nullptr) {
+            headPtr = nullptr;
+        } else {
+            // Copy first node
+            headPtr = new Node<ItemType>();
+            headPtr->setItem(aBag.headPtr->getItem());
+
+            // Traverse both lists
+            Node<ItemType>* newChainPtr = headPtr;
+            Node<ItemType>* origChainPtr = aBag.headPtr->getNext();
+
+            while (origChainPtr != nullptr) {
+                ItemType nextItem = origChainPtr->getItem();
+                Node<ItemType>* newNodePtr = new Node<ItemType>(nextItem);
+                newChainPtr->setNext(newNodePtr);
+
+                newChainPtr = newChainPtr->getNext();
+                origChainPtr = origChainPtr->getNext();
+            }
+            newChainPtr->setNext(nullptr);
+        }
+    }
+    return *this;
+}
+
 
 // Template instantiations
 template class LinkedBag<std::shared_ptr<Product>>;

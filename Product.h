@@ -16,10 +16,11 @@ class Product{
     string description;
     double rating; 
     int timesSold;
+    double price;
 
     public:
     // Constructor
-    Product(string name, string description, double rating);
+    Product(string name, string description, double rating, double price);
 
     // BIG 3
     virtual ~Product() = default;
@@ -31,11 +32,13 @@ class Product{
     string getDescription() const;
     double getRating() const;
     int getTimesSold() const;
+    double getPrice() const;
 
     //setters
     void setName(string newName);
     void setDescription(string newDescription);
     void setRating(double newRating);
+    void setPrice(double newPrice);
 
     //sell function
     virtual void sell() = 0;

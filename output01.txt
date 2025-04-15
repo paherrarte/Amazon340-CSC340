@@ -1,0 +1,59 @@
+Welcome to Amazon340!
+Enter Vendor Information:
+Username: BestBuy
+Email: bestbuy@email.com
+Password: secure123
+Bio: We sell electronics
+Profile Picture: bestbuy.jpg
+Vendor profile created successfully!
+
+ Hi, BestBuy, what would you like to do:
+1. Display Profile
+2. Modify Password
+3. Create Product
+4. Display All Products
+5. Display Kth Product
+6. Modify Product
+7. Sell Product
+8. Delete Product
+0. Logout
+Choice: 3
+Enter Product Type:
+1. Goods
+2. Media
+Choice: 2
+Enter Media Information:
+Name: Avengers: Endgame
+Description: Blu-ray
+Rating: 4.9
+Price: $29.99
+Type: Movie
+Target Audience: 18+
+Product added successfully: Avengers: Endgame
+
+ Hi, BestBuy, what would you like to do:
+1. Display Profile
+2. Modify Password
+3. Create Product
+4. Display All Products
+5. Display Kth Product
+6. Modify Product
+7. Sell Product
+8. Delete Product
+0. Logout
+Choice: 4
+Vendor's Products:
+1. Avengers: Endgame - Blu-ray - $29.99
+
+ Hi, BestBuy, what would you like to do:
+1. Display Profile
+2. Modify Password
+3. Create Product
+4. Display All Products
+5. Display Kth Product
+6. Modify Product
+7. Sell Product
+8. Delete Product
+0. Logout
+Choice: 0
+Logging you out.

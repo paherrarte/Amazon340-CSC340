@@ -29,6 +29,7 @@
          LinkedBag(const LinkedBag<ItemType>& aBag); // Copy constructor
          virtual ~LinkedBag();						// Destructor should be virtual
          LinkedBag<ItemType>& operator=(const LinkedBag<ItemType>& aBag); // Assignment operator
+
      
          // Assignment 2 functions -------------------------------------------
          bool appendK(const ItemType& newEntry, const int& k);

@@ -38,7 +38,7 @@ public:
     // Product management
     void addProduct(shared_ptr<Product> product);
     void deleteProduct(int index);
-    void modifyProduct(int index, string name, string desc);
+    void modifyProduct(int index, string name, string desc, double price);
     void sellProduct(int index);
 
     //Display products

@@ -12,7 +12,7 @@ private:
 
 public:
     // Constructor
-    Media(string name, string description, double rating, string type, string targetAudience);
+    Media(string name, string description, double rating, double price, string type, string targetAudience);
 
     // BIG 3
     ~Media() override = default;
